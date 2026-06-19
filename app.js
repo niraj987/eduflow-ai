@@ -1,4 +1,4 @@
-// app.js - Main Application Orchestrator for AetherLearn
+// app.js - Main Application Orchestrator for EduFlow AI
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initial State
@@ -11,18 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
     voiceEnabled: false
   };
 
-  // 2. Instantiate system modules
-  const dsaVis = new window.AetherDSA.DSAVisualizer('dsa-canvas', 'dsa-log', 'dsa-structure-view');
-  const ragSystem = new window.AetherRAG('rag-canvas');
-  const tutorSystem = new window.AetherTutor(ragSystem);
-  const lrModel = new window.AetherML.LinearRegression();
-  const dtClassifier = new window.AetherML.DecisionTree();
+  const dsaVis = new window.EduFlowDSA.DSAVisualizer('dsa-canvas', 'dsa-log', 'dsa-structure-view');
+  const ragSystem = new window.EduFlowRAG('rag-canvas');
+  const tutorSystem = new window.EduFlowTutor(ragSystem);
+  const lrModel = new window.EduFlowML.LinearRegression();
+  const dtClassifier = new window.EduFlowML.DecisionTree();
 
   // Initialize models
-  dtClassifier.fit(window.AetherData.studentPerformanceDataset);
+  dtClassifier.fit(window.EduFlowData.studentPerformanceDataset);
 
   // Pre-load saved Gemini API Key if present
-  const savedApiKey = localStorage.getItem('AETHER_GEMINI_KEY');
+  const savedApiKey = localStorage.getItem('EDUFLOW_GEMINI_KEY');
   if (savedApiKey) {
     document.getElementById('gemini-api-key-input').value = savedApiKey;
   }
@@ -31,19 +30,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-save-api-key').addEventListener('click', () => {
     const key = document.getElementById('gemini-api-key-input').value.trim();
     if (key) {
-      localStorage.setItem('AETHER_GEMINI_KEY', key);
+      localStorage.setItem('EDUFLOW_GEMINI_KEY', key);
       alert("Gemini API Key saved successfully! The tutor will now run using the live Gemini 1.5 Flash model.");
     } else {
-      localStorage.removeItem('AETHER_GEMINI_KEY');
+      localStorage.removeItem('EDUFLOW_GEMINI_KEY');
       alert("API Key cleared. The tutor will fall back to local offline simulated mode.");
     }
   });
 
   // 3. Render initial tree DOM
-  window.AetherDSA.renderTreeDOM(window.AetherData.syllabusTree, document.getElementById('syllabus-tree-container'));
+  window.EduFlowDSA.renderTreeDOM(window.EduFlowData.syllabusTree, document.getElementById('syllabus-tree-container'));
 
   // 4. Populate drop downs
-  const dsaNodes = window.AetherData.syllabusGraph.nodes;
+  const dsaNodes = window.EduFlowData.syllabusGraph.nodes;
   const startSelect = document.getElementById('algo-start-node');
   const dijkstraStart = document.getElementById('dijkstra-start');
   const dijkstraTarget = document.getElementById('dijkstra-target');
@@ -247,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     historyView.innerHTML = `Running gradient descent updates...<br>`;
     
     // Run fitting
-    lrModel.fit(window.AetherData.studentPerformanceDataset, 200, 0.1, (epoch, mse, weights) => {
+    lrModel.fit(window.EduFlowData.studentPerformanceDataset, 200, 0.1, (epoch, mse, weights) => {
       historyView.innerHTML += `Epoch ${epoch}: Loss (MSE) = <span style="color:var(--color-warning);">${mse.toFixed(6)}</span><br>`;
       historyView.scrollTop = historyView.scrollHeight;
     });

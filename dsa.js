@@ -1,4 +1,4 @@
-// dsa.js - Algorithms and Visualizer for AetherLearn
+// dsa.js - Algorithms and Visualizer for EduFlow AI
 
 class DSAVisualizer {
   constructor(canvasId, logContainerId, stateContainerId) {
@@ -32,7 +32,7 @@ class DSAVisualizer {
   }
 
   loadData() {
-    const data = window.AetherData.syllabusGraph;
+    const data = window.EduFlowData.syllabusGraph;
     this.nodes = JSON.parse(JSON.stringify(data.nodes));
     this.edges = JSON.parse(JSON.stringify(data.edges));
     this.nodeMap.clear();
@@ -613,7 +613,7 @@ function renderTreeDOM(node, container) {
 }
 
 // Export modules to window
-window.AetherDSA = {
+window.EduFlowDSA = {
   DSAVisualizer,
   renderTreeDOM
 };

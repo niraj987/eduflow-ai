@@ -1,6 +1,6 @@
 // ml.js - Live Client-Side Student Performance Prediction Engine
 
-class AetherLinearRegression {
+class EduFlowLinearRegression {
   constructor() {
     // Coefficients for: Bias, Attendance, Study Hours, Prev GPA, Quiz Score, Course Difficulty
     this.weights = [10.0, 0.2, 0.8, 4.0, 0.3, -1.5]; // Baseline weights
@@ -90,7 +90,7 @@ class AetherLinearRegression {
   }
 }
 
-class AetherDecisionTree {
+class EduFlowDecisionTree {
   constructor() {
     this.root = null;
   }
@@ -185,7 +185,7 @@ class AetherDecisionTree {
 }
 
 // Global scope
-window.AetherML = {
-  LinearRegression: AetherLinearRegression,
-  DecisionTree: AetherDecisionTree
+window.EduFlowML = {
+  LinearRegression: EduFlowLinearRegression,
+  DecisionTree: EduFlowDecisionTree
 };

@@ -14,7 +14,7 @@ const STOP_WORDS = new Set([
   'who', 'whom', 'why', 'with', 'wont', 'would', 'wouldnt', 'you', 'your', 'yours', 'yourself', 'yourselves'
 ]);
 
-class AetherRAGSystem {
+class EduFlowRAGSystem {
   constructor(canvasId) {
     this.canvas = document.getElementById(canvasId);
     if (this.canvas) {
@@ -28,9 +28,8 @@ class AetherRAGSystem {
     this.initializeDB();
   }
 
-  // Segment textbooks into clean chunks
   initializeDB() {
-    const chapters = window.AetherData.textbookChapters;
+    const chapters = window.EduFlowData.textbookChapters;
     let chunkId = 1;
     this.chunks = [];
     
@@ -249,4 +248,4 @@ class AetherRAGSystem {
 }
 
 // Export modules to window
-window.AetherRAG = AetherRAGSystem;
+window.EduFlowRAG = EduFlowRAGSystem;

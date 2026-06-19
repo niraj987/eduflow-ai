@@ -1,13 +1,13 @@
-# AetherLearn: Personalized AI Learning & DSA Path Optimizer
+# EduFlow AI: Personalized AI & DSA Path Optimizer
 
-AetherLearn is a state-of-the-art, interactive Single Page Web Application (SPA) designed to combine **Data Structures & Algorithms (DSA)** pathing, **Client-Side Machine Learning**, **Retrieval-Augmented Generation (RAG)** vector space simulations, and **Conversational AI Coaching** into a visually stunning, glassmorphic student dashboard.
+EduFlow AI is a state-of-the-art, interactive Single Page Web Application (SPA) designed to combine **Data Structures & Algorithms (DSA)** pathing, **Client-Side Machine Learning**, **Retrieval-Augmented Generation (RAG)** vector space simulations, and **Conversational AI Coaching** into a visually stunning, glassmorphic student dashboard.
 
 Designed for static hosting (e.g. GitHub Pages), this project runs completely in the web browser, eliminating complex backend configurations and enabling recruiters to test all features instantly.
 
 ---
 
 ## 🚀 Live Demo
-🌐 **Deployment URL:** [https://niraj987.github.io/aetherlearn/](https://niraj987.github.io/aetherlearn/)
+🌐 **Deployment URL:** [https://niraj987.github.io/eduflow-ai/](https://niraj987.github.io/eduflow-ai/)
 
 ---
 

@@ -112,7 +112,7 @@ const textbookChapters = [
 ];
 
 // Export datasets to global scope for browser files
-window.AetherData = {
+window.EduFlowData = {
   syllabusTree,
   syllabusGraph,
   studentPerformanceDataset,

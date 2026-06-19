@@ -1,6 +1,6 @@
 // tutor.js - GenAI Tutor, Quiz Engine, Summarizer, and Voice Synthesis
 
-class AetherGenAITutor {
+class EduFlowGenAITutor {
   constructor(ragSystem) {
     this.rag = ragSystem;
     this.voiceActive = false;
@@ -119,7 +119,7 @@ class AetherGenAITutor {
     ${queryText}`;
 
     // Check if Gemini API key is available
-    const apiKey = localStorage.getItem('AETHER_GEMINI_KEY');
+    const apiKey = localStorage.getItem('EDUFLOW_GEMINI_KEY');
     
     if (apiKey && apiKey.trim().length > 0) {
       try {
@@ -415,4 +415,4 @@ class AetherGenAITutor {
 }
 
 // Global scope
-window.AetherTutor = AetherGenAITutor;
+window.EduFlowTutor = EduFlowGenAITutor;

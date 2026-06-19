@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AetherLearn - Personalized AI & DSA Learning Platform</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand">
+        <div class="brand-logo">Ξ</div>
+        <div class="brand-name">AetherLearn</div>
+      </div>
+
+      <!-- User Info (Gamification) -->
+      <div class="user-card">
+        <div class="user-header">
+          <div class="user-avatar">👤</div>
+          <div class="user-meta">
+            <div class="username" id="user-display-name">Alex Mercer</div>
+            <div class="rank">CS Path Optimizer</div>
+          </div>
+        </div>
+        <div class="user-stats">
+          <div class="stat-box">
+            <div class="stat-val" id="user-xp">1,250</div>
+            <div class="stat-lbl">XP</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val" id="user-streak">🔥 5</div>
+            <div class="stat-lbl">Streak</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="nav-menu">
+        <a class="nav-item active" data-tab="dashboard-tab">
+          <span>📊</span> Dashboard
+        </a>
+        <a class="nav-item" data-tab="dsa-tab">
+          <span>🌿</span> Curriculum Organizer
+        </a>
+        <a class="nav-item" data-tab="ml-tab">
+          <span>📈</span> Predictor (ML)
+        </a>
+        <a class="nav-item" data-tab="tutor-tab">
+          <span>🤖</span> AI Tutor & Quiz
+        </a>
+        <a class="nav-item" data-tab="rag-tab">
+          <span>🔍</span> RAG Vector DB
+        </a>
+      </nav>
+      
+      <!-- API Configurations -->
+      <div class="user-card" style="margin-top: 1rem; padding: 0.85rem; background: hsla(240, 20%, 8%, 0.4); border: 1px solid var(--border-glass);">
+        <h4 style="font-size: 0.8rem; margin-bottom: 0.5rem; color: var(--accent-indigo);">Gemini LLM Key</h4>
+        <input type="password" id="gemini-api-key-input" placeholder="Paste Gemini API Key..." style="width: 100%; padding: 0.45rem 0.6rem; font-size: 0.75rem; background: hsla(240, 20%, 8%, 0.8); border: 1px solid var(--border-glass); border-radius: 6px; color: var(--text-primary); margin-bottom: 0.4rem;">
+        <button class="btn btn-secondary btn-sm" id="btn-save-api-key" style="width: 100%; font-size: 0.7rem; padding: 4px 8px; height: 26px;">Save Key</button>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div>AetherLearn v1.0.0</div>
+      <div>Placement Ready Portfolio</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content">
+
+    <!-- TAB 1: DASHBOARD -->
+    <div id="dashboard-tab" class="tab-pane active">
+      <div class="header-row">
+        <div class="title-group">
+          <h2>Learning Analytics Dashboard</h2>
+          <p>Real-time machine learning predictions, accomplishments, and tailored path directives.</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Left Pane: Stats & Recommendations -->
+        <div class="flex-column" style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="glass-card">
+            <h3>Quick Stats</h3>
+            <div class="stats-row" style="margin-top: 1rem;">
+              <div class="metric-card">
+                <span class="stat-lbl">Course Completion</span>
+                <span class="metric-num">64%</span>
+              </div>
+              <div class="metric-card">
+                <span class="stat-lbl">Quizzes Taken</span>
+                <span class="metric-num" id="dash-quizzes-taken">4</span>
+              </div>
+              <div class="metric-card">
+                <span class="stat-lbl">Global Level</span>
+                <span class="metric-num">Lvl 4</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3>Automated Recommendations</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Netflix-style adaptive learning recommendations based on performance history:</p>
+            <div id="recommendations-container" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- Dynamic recommendations will be loaded here -->
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3>Badges & Achievements</h3>
+            <div class="badge-rack">
+              <div class="badge-item" id="badge-explorer">
+                <span class="badge-icon">🌿</span>
+                <span>DSA Explorer</span>
+              </div>
+              <div class="badge-item" id="badge-graph">
+                <span class="badge-icon">🕸️</span>
+                <span>Graph Master</span>
+              </div>
+              <div class="badge-item locked" id="badge-predict">
+                <span class="badge-icon">📈</span>
+                <span>ML Prodigy</span>
+              </div>
+              <div class="badge-item locked" id="badge-tutor">
+                <span class="badge-icon">🎙️</span>
+                <span>Voice Scholar</span>
+              </div>
+              <div class="badge-item locked" id="badge-quiz">
+                <span class="badge-icon">🏆</span>
+                <span>Quiz Champion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Pane: Score Prediction -->
+        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3>ML Performance Forecast</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Predicting final academic outcome based on study patterns:</p>
+            
+            <div class="dial-container">
+              <svg class="dial-svg" viewBox="0 0 160 160">
+                <defs>
+                  <linearGradient id="dial-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--accent-indigo)" />
+                    <stop offset="100%" stop-color="var(--accent-purple)" />
+                  </linearGradient>
+                </defs>
+                <circle class="dial-bg" cx="80" cy="80" r="70" />
+                <circle class="dial-fill" id="score-dial-fill" cx="80" cy="80" r="70" />
+              </svg>
+              <div class="dial-text">
+                <span class="dial-score" id="pred-score-display">--%</span>
+                <span class="dial-label">Predicted Grade</span>
+              </div>
+            </div>
+
+            <div class="risk-indicator risk-low" id="pred-risk-display">LOW RISK</div>
+          </div>
+
+          <div style="background: hsla(240, 20%, 8%, 0.4); padding: 1rem; border-radius: 12px; border: 1px solid var(--border-glass);">
+            <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--accent-indigo);">Predictor Context</h4>
+            <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 1rem;">
+              <li>Study Time vs Attendance weighted ratio: Optimal.</li>
+              <li>Prerequisites: Dijkstra Shortest Path mapped.</li>
+            </ul>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-muted);">Update variables under the <strong>Predictor (ML)</strong> tab to see this forecast dynamically recalibrate.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: CURRICULUM (DSA) -->
+    <div id="dsa-tab" class="tab-pane">
+      <div class="header-row">
+        <div class="title-group">
+          <h2>Curriculum Organizer (DSA Graph & Tree)</h2>
+          <p>Visualize BFS, DFS, Dijkstra Shortest Path, and Topological Sort sequence directly mapped to subject dependencies.</p>
+        </div>
+      </div>
+
+      <div class="dsa-layout">
+        <!-- Interactive Canvas -->
+        <div class="canvas-container">
+          <div class="dsa-controls">
+            <select id="algo-select">
+              <option value="bfs">Breadth-First Search (BFS)</option>
+              <option value="dfs">Depth-First Search (DFS)</option>
+              <option value="dijkstra">Dijkstra Shortest Path</option>
+              <option value="toposort">Topological Sort</option>
+            </select>
+            
+            <div id="dijkstra-node-selects" style="display: none; align-items: center; gap: 0.5rem;">
+              <select id="dijkstra-start" style="padding: 0.4rem 0.6rem; font-size: 0.8rem;"></select>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">to</span>
+              <select id="dijkstra-target" style="padding: 0.4rem 0.6rem; font-size: 0.8rem;"></select>
+            </div>
+
+            <div id="general-node-select" style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Start Node:</span>
+              <select id="algo-start-node" style="padding: 0.4rem 0.6rem; font-size: 0.8rem;"></select>
+            </div>
+
+            <button class="btn btn-sm" id="btn-algo-start">🚀 Start</button>
+            <button class="btn btn-secondary btn-sm" id="btn-algo-step">Step</button>
+            <button class="btn btn-secondary btn-sm" id="btn-algo-play">▶ Play</button>
+            <button class="btn btn-secondary btn-sm" id="btn-algo-reset">Reset</button>
+          </div>
+          <canvas id="dsa-canvas"></canvas>
+        </div>
+
+        <!-- Sidebar logs and stack/queue metrics -->
+        <div class="dsa-sidebar">
+          <div class="dsa-panel">
+            <h3>Algorithm State Log</h3>
+            <div class="terminal-log" id="dsa-log"></div>
+          </div>
+          <div class="dsa-panel" id="dsa-variables-panel" style="flex-grow: 1;">
+            <h3>Data Structures</h3>
+            <div id="dsa-structure-view" style="font-size: 0.85rem;">
+              Select an algorithm and press Start to initialize structure frames.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Syllabus Tree -->
+      <div class="glass-card" style="margin-top: 1.5rem;">
+        <h3>Syllabus Tree Structure (Subjects & Topics)</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Click headers to toggle collapse state in the educational syllabus tree:</p>
+        <div class="tree-container" id="syllabus-tree-container">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: PREDICTOR (ML) -->
+    <div id="ml-tab" class="tab-pane">
+      <div class="header-row">
+        <div class="title-group">
+          <h2>Performance Forecast Model (ML)</h2>
+          <p>Tweak student stats to trigger score forecasts, or fit weights using multivariate Gradient Descent.</p>
+        </div>
+      </div>
+
+      <div class="ml-dashboard">
+        <!-- Parameters panel -->
+        <div class="glass-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <h3>Forecast Parameters</h3>
+          
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>Attendance Rate</span>
+              <span class="slider-val" id="val-attendance">85%</span>
+            </div>
+            <input type="range" id="slide-attendance" min="0" max="100" value="85">
+          </div>
+
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>Weekly Study Hours</span>
+              <span class="slider-val" id="val-studyHours">10h</span>
+            </div>
+            <input type="range" id="slide-studyHours" min="0" max="20" value="10">
+          </div>
+
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>Previous Semester GPA</span>
+              <span class="slider-val" id="val-prevGPA">3.2</span>
+            </div>
+            <input type="range" id="slide-prevGPA" min="0.0" max="4.0" step="0.1" value="3.2">
+          </div>
+
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>Quiz Average Score</span>
+              <span class="slider-val" id="val-quizScore">80%</span>
+            </div>
+            <input type="range" id="slide-quizScore" min="0" max="100" value="80">
+          </div>
+
+          <div class="slider-container">
+            <div class="slider-labels">
+              <span>Course Syllabus Difficulty</span>
+              <span class="slider-val" id="val-difficulty">3</span>
+            </div>
+            <input type="range" id="slide-difficulty" min="1" max="5" value="3">
+          </div>
+
+          <div style="border-top: 1px solid var(--border-glass); padding-top: 1rem; display: flex; gap: 0.75rem;">
+            <button class="btn" id="btn-fit-ml" style="flex-grow: 1;">⚡ Fit ML Model (Train)</button>
+            <button class="btn btn-secondary" id="btn-reset-weights">Reset Model</button>
+          </div>
+        </div>
+
+        <!-- ML Metrics, logs, weights -->
+        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="ml-metrics-panel">
+            <h3>Multivariate Linear Regression Fit</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Mathematical model equation using updated coefficients:</p>
+            
+            <div class="code-box" id="equation-display" style="font-size: 0.85rem; color: var(--color-warning);">
+              Score = w₀ + w₁*(Attendance) + w₂*(StudyHours) + ...
+            </div>
+
+            <h4>Current Model Weights (Coefficients)</h4>
+            <div class="weights-grid" id="weights-display">
+              <!-- JS updates -->
+            </div>
+
+            <h4 style="margin-top: 1rem;">Training MSE Loss history</h4>
+            <div id="loss-history-view" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; height: 120px; overflow-y: auto; background: #09090e; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-glass);">
+              Model is utilizing baseline weights. Click Train Model to observe gradient descent.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: TUTOR & QUIZ -->
+    <div id="tutor-tab" class="tab-pane">
+      <div class="header-row">
+        <div class="title-group">
+          <h2>GenAI Tutor & Revision Cards</h2>
+          <p>Converse with your tutor, request interactive quizzes, and convert text to summarized revision cards.</p>
+        </div>
+      </div>
+
+      <!-- Language selection -->
+      <div class="lang-selector">
+        <span style="font-size: 0.85rem; color: var(--text-muted); align-self: center; margin-right: 0.5rem;">Voice Accent:</span>
+        <button class="lang-btn active" data-lang="en-US">🇬🇧 English</button>
+        <button class="lang-btn" data-lang="hi-IN">🇮🇳 Hindi (हिन्दी)</button>
+        <button class="lang-btn" data-lang="pa-IN">🇮🇳 Punjabi (ਪੰਜਾਬੀ)</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.5rem;">
+        <!-- Chat console -->
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages-box">
+            <!-- Messages -->
+            <div class="message tutor">
+              <div class="message-avatar">🤖</div>
+              <div class="message-bubble">
+                <h3>Hello! I am your AI Study Tutor.</h3>
+                <p>Ask me to explain any topics from our curriculum (like <strong>K-Means Clustering</strong>, <strong>Overfitting</strong>, or <strong>Dijkstra's shortest path</strong>), or write notes below to summarize them.</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="chat-user-input" placeholder="Type query... (e.g. 'Explain overfitting in simple terms')">
+            <button class="btn btn-secondary" id="btn-tutor-mic" title="Voice Search (Speech to Text)">🎤</button>
+            <button class="btn btn-secondary" id="btn-tutor-speak-toggle" title="Read answers aloud (Text to Speech)">🔊</button>
+            <button class="btn" id="btn-tutor-send">Send</button>
+          </div>
+        </div>
+
+        <!-- Auto Summarizer & Flashcards -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="glass-card">
+            <h3>Automated Text Summarizer</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">Paste lecture notes or chapter paragraphs to generate key points and revision flashcards:</p>
+            <textarea id="summary-input-text" rows="5" placeholder="Paste textbook paragraphs here..." style="width: 100%; resize: none; margin-bottom: 0.75rem;"></textarea>
+            <button class="btn btn-secondary btn-sm" id="btn-generate-summary" style="width: 100%;">📝 Generate Summary & Cards</button>
+          </div>
+
+          <div class="glass-card" id="summary-output-card" style="display: none;">
+            <h3>Summary Output</h3>
+            <p id="summary-text-box" style="font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); margin-bottom: 1rem;"></p>
+            
+            <h3>Revision Flashcards</h3>
+            <p style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.5rem;">Click card to flip and view definition:</p>
+            <div class="summary-container" id="flashcards-box">
+              <!-- Dynamic Flashcards -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Section -->
+      <div class="glass-card" style="margin-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h3>Interactive Concept Quiz</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Generate quizzes covering selected topics to test your comprehension and adjust prediction parameters.</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <select id="quiz-topic-select" style="padding: 0.5rem 0.85rem; font-size: 0.8rem;">
+              <option value="overfitting">Overfitting & Regularization</option>
+              <option value="kmeans">K-Means Clustering</option>
+              <option value="nn">Neural Networks & Dijkstra</option>
+            </select>
+            <button class="btn" id="btn-load-quiz">✍️ Start Quiz</button>
+          </div>
+        </div>
+        
+        <div class="quiz-panel" id="quiz-container" style="display: none;">
+          <!-- Loaded by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: RAG VECTOR DB PIPELINE -->
+    <div id="rag-tab" class="tab-pane">
+      <div class="header-row">
+        <div class="title-group">
+          <h2>Retrieval-Augmented Generation (RAG) Pipeline</h2>
+          <p>Visualize textbook processing, vector coordinates database lookup, and prompt formulation.</p>
+        </div>
+      </div>
+
+      <div class="rag-grid">
+        <!-- Left Pane: Vector space visualization -->
+        <div class="glass-card">
+          <h3>2D Vector Space Projection</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Visualizing text similarity using term-frequency cosine distances (2D scatter projection):</p>
+          <div class="canvas-container" style="min-height: 380px;">
+            <canvas id="rag-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Right Pane: Pipeline step logger -->
+        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3>RAG Execution Steps</h3>
+            
+            <div class="pipeline-diagram">
+              <div class="pipeline-step" id="rag-step-1">
+                <span class="step-num">1</span>
+                <div>
+                  <strong>Document Chunking</strong>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Syllabus divided into sentence window segments.</div>
+                </div>
+              </div>
+              <div class="pipeline-step" id="rag-step-2">
+                <span class="step-num">2</span>
+                <div>
+                  <strong>TF-IDF Vectorization</strong>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Vector coordinates computed based on vocabulary frequency.</div>
+                </div>
+              </div>
+              <div class="pipeline-step" id="rag-step-3">
+                <span class="step-num">3</span>
+                <div>
+                  <strong>Cosine Vector Distance Lookup</strong>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Determined closest vector matches for the query.</div>
+                </div>
+              </div>
+              <div class="pipeline-step" id="rag-step-4">
+                <span class="step-num">4</span>
+                <div>
+                  <strong>Prompt Context Injection</strong>
+                  <div style="font-size: 0.75rem; color: var(--text-muted);">Matched passages combined with study queries.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <h3>Formulated LLM Context</h3>
+            <div class="code-box" id="rag-prompt-box" style="font-size: 0.75rem; max-height: 150px; overflow-y: auto;">
+              No query executed yet. Ask a question in the AI Tutor tab or trigger RAG database exploration.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Load Scripts -->
+  <script src="data.js"></script>
+  <script src="dsa.js"></script>
+  <script src="ml.js"></script>
+  <script src="rag.js"></script>
+  <script src="tutor.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

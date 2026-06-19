@@ -1,0 +1,391 @@
+Project Overview
+
+Imagine a platform like a personalized version of Coursera, Khan Academy, and ChatGPT combined.
+
+The system:
+
+Creates a personalized learning path.
+Tracks student performance.
+Predicts future scores.
+Recommends topics to study.
+Generates notes, quizzes, and explanations automatically.
+Answers questions from textbooks using RAG.
+Architecture
+6
+Module 1: Curriculum Organizer (DSA)
+Purpose
+
+Store subjects and topics efficiently.
+
+DSA Used
+Tree Structure
+Data Science
+│
+├── Python
+│   ├── Variables
+│   ├── Loops
+│   └── Functions
+│
+├── Statistics
+│   ├── Mean
+│   ├── Variance
+│   └── Probability
+│
+└── Machine Learning
+    ├── Regression
+    ├── Classification
+    └── Clustering
+Benefits
+Easy navigation
+Prerequisite mapping
+Learning path generation
+Graph Structure
+
+Example:
+
+Python → Numpy → Pandas → Machine Learning
+
+Graph helps determine:
+
+Topic dependencies
+Recommended next topic
+Shortest learning path
+
+Algorithms:
+
+BFS
+DFS
+Dijkstra
+Topological Sort
+Module 2: Student Performance Prediction (ML)
+Goal
+
+Predict:
+
+Final exam score
+Pass/Fail
+Risk of backlog
+Learning speed
+Inputs
+Attendance
+Quiz Scores
+Assignment Scores
+Study Hours
+Previous GPA
+Course Difficulty
+Algorithms
+
+Beginner
+
+Linear Regression
+Decision Tree
+
+Intermediate
+
+Random Forest
+XGBoost
+
+Advanced
+
+LSTM
+Transformer Time Series
+Output
+Predicted Score = 82%
+
+Risk Level = Low
+
+Recommended:
+Revise Statistics
+Practice SQL
+Module 3: Recommendation Engine
+
+Similar to Netflix recommendations.
+
+Example
+
+Student performs poorly in:
+
+Probability
+Statistics
+
+System recommends:
+
+1. Probability Basics
+2. Bayesian Theory
+3. Practice Quiz
+4. Video Lectures
+Algorithms
+Collaborative Filtering
+Content-Based Filtering
+Hybrid Recommendation
+
+Libraries:
+
+Surprise
+Scikit-learn
+TensorFlow Recommenders
+Module 4: GenAI Tutor
+Features
+
+Student asks:
+
+Explain Neural Networks in simple language
+
+AI generates:
+
+Explanation
+Examples
+Diagrams
+Practice Questions
+
+Models:
+
+Llama 3
+Mistral
+Gemma
+GPT Models
+Module 5: Quiz Generator
+
+Input:
+
+Chapter PDF
+
+Output:
+
+MCQ
+True/False
+Fill in the blanks
+Short Answers
+
+Example:
+
+Question:
+What is overfitting?
+
+A) Good learning
+B) Poor generalization
+C) Data cleaning
+D) Scaling
+
+Answer: B
+
+
+---
+
+# Module 6: Auto Summary Generator
+
+Upload:
+
+- PDF
+- PPT
+- Notes
+
+Generate:
+
+- Short summary
+- Important points
+- Exam revision notes
+
+Models:
+
+- T5
+- BART
+- Pegasus
+
+---
+
+# Module 7: RAG (Retrieval Augmented Generation)
+
+Most impressive part of the project.
+
+### Problem
+
+Normal AI may hallucinate.
+
+### Solution
+
+RAG uses textbook knowledge.
+
+Workflow:
+
+```text
+Textbook PDF
+     ↓
+Chunking
+     ↓
+Embeddings
+     ↓
+Vector Database
+     ↓
+Retriever
+     ↓
+LLM
+     ↓
+Answer
+
+Student asks:
+
+What is K-Means Clustering?
+
+System retrieves textbook section and generates answer from it.
+
+Tech Stack
+Frontend
+ReactJS
+NextJS
+Flutter (optional mobile app)
+Backend
+FastAPI
+Django
+Database
+PostgreSQL
+MongoDB
+Vector Database
+ChromaDB
+FAISS
+Pinecone
+AI Libraries
+LangChain
+LlamaIndex
+Transformers
+PyTorch
+TensorFlow
+Scikit-learn
+Datasets for Performance Prediction
+
+I checked commonly used educational datasets suitable for this project.
+
+1. Student Performance Dataset
+
+UCI Student Performance Dataset
+
+Contains:
+
+Attendance
+Grades
+Study time
+Family background
+
+Best for:
+
+Score prediction
+Pass/Fail prediction
+2. Open University Learning Analytics Dataset
+
+OULAD Dataset
+
+Contains:
+
+Student interactions
+Assessment results
+Course engagement
+
+Best for:
+
+Learning analytics
+Recommendation systems
+3. EdNet Dataset
+
+EdNet Dataset
+
+Contains:
+
+Millions of student interactions
+Learning behavior
+
+Best for:
+
+Deep learning
+Knowledge tracing
+4. ASSISTments Dataset
+
+ASSISTments Data Repository
+
+Contains:
+
+Question attempts
+Correctness
+Learning patterns
+
+Best for:
+
+Recommendation engine
+Performance prediction
+Datasets for RAG
+Textbooks
+
+Use:
+
+University Notes
+NPTEL PDFs
+Open educational textbooks
+
+Examples:
+
+OpenStax Textbooks
+
+Subjects:
+
+Statistics
+Computer Science
+Mathematics
+Database Design
+Student Table
+student_id
+name
+course
+semester
+cgpa
+Performance Table
+quiz_score
+assignment_score
+attendance
+study_hours
+Recommendation Table
+recommended_topic
+confidence_score
+Advanced Features (for Placement/Resume)
+Dashboard
+
+Show:
+
+Learning progress
+Predicted score
+Weak topics
+Recommended roadmap
+Gamification
+Badges
+Streaks
+XP points
+Voice Tutor
+
+Speech-to-Text
+
+Libraries:
+
+Whisper
+DeepSpeech
+Multi-language Support
+
+English
+Hindi
+Punjabi
+
+Project Flow
+Student Login
+       ↓
+Curriculum Tree
+       ↓
+Study Topics
+       ↓
+Take Quiz
+       ↓
+ML Predicts Performance
+       ↓
+Recommendation Engine
+       ↓
+GenAI Generates Notes
+       ↓
+RAG Answers Questions
+       ↓
+Progress Dashboard
